@@ -1,4 +1,5 @@
 let translatedDataFields = {};
+let translatedFilterFields = {};
 
 export default {
     methods: {
@@ -17,6 +18,15 @@ export default {
             }
 
             return this.addCommonFields(dataField);
+        },
+
+        getFilterFields(name, filterFields){
+            if(! translatedFilterFields[name]) {
+                this.translateTitles(filterFields);
+                translatedFilterFields[name] = true;
+            }
+
+            return filterFields;
         },
 
         /**
@@ -58,29 +68,15 @@ export default {
             return tableFields;
         },
 
-        /*
-        getLabels(items) {
-            let labels = items.map((element) => element.label || element.name);
-            return labels.join(', ')
-        },
-
-        state(name){
-            let translated = this.$t(`models.state.${name}`);
-            switch (name){
-                case 'waiting':
-                    return `<span class="badge badge-secondary">${translated}</span>`;
-                case 'in_progress':
-                    return `<span class="badge badge-info">${translated}</span>`;
-                case 'finished':
-                    return `<span class="badge badge-primary">${translated}</span`;
-                case 'delivered':
-                    return `<span class="badge badge-success">${translated}</span>`;
-            }
-        },
-        */
         boolean(value){
             let result = value ? '&#10003;' : this.$t('controls.no');
             return `<span class="ml-3">${result}</span>`;
+        },
+
+        openClose(value) {
+            let className = value ? 'badge-success' : 'badge-danger';
+            let state = value ? this.$t('labels.open') : this.$t('labels.closed');
+            return `<span class="badge ${className}">${state}</span>`
         }
 
     }

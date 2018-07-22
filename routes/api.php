@@ -28,7 +28,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('user', 'UserController@user')->name('user');
 
-    Route::resource('users', 'UserController')->except(['edit', 'create', 'store']);
+    Route::resource('users', 'UserController')->except(['edit', 'create']);
+    Route::resource('orders', 'OrderController')->except(['edit', 'create']);
+    Route::resource('products', 'ProductController')->except(['edit', 'create']);
 
     /*
      * Admin Routes
@@ -41,6 +43,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     ], function () {
         Route::resource('users', 'UserController')->except(['edit', 'create']);
         Route::resource('orders', 'OrderController')->except(['edit', 'create']);
+        Route::resource('products', 'ProductController')->except(['edit', 'create']);
     });
 });
 

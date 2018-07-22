@@ -12,35 +12,33 @@ class ViewUsersTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function only_administrators_can_view_users()
+    function unauthenticated_user_cannot_fetch_users()
     {
-        $this->signIn(create(User::class));
-
-        $this->getJson(route('admin.users.index'))
+        $this->getJson(route('users.index'))
             ->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
     /** @test */
-    function administrator_user_can_fetch_all_users()
+    function authenticated_user_can_fetch_all_users()
     {
         $this->signIn();
 
         create(User::class, [], 3);
 
-        $response = $this->getJson(route('admin.users.index'))
+        $response = $this->getJson(route('users.index'))
             ->json();
 
         $this->assertCount(User::count(), $response['data']);
     }
 
     /** @test */
-    function administrator_user_can_fetch_an_user()
+    function authenticated_user_can_fetch_specific_users()
     {
         $this->signIn();
 
         $user = create(User::class);
 
-        $this->getJson(route('admin.users.show', $user))
+        $this->getJson(route('users.show', $user))
             ->assertSuccessful();
     }
 }

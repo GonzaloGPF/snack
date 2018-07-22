@@ -65,16 +65,21 @@ class Controller extends BaseController
     /**
      * Basic destroy response. A Resource can be specified
      *
+     * @param Model $model
      * @param null $resource
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroyResponse($resource = null)
+    public function destroyResponse(Model $model, $resource = null)
     {
-        if ($resource) {
-            return $this->sendResource(Response::HTTP_ACCEPTED, $this->getMessage('deleted'), $resource);
+        try {
+            $model->delete();
+        } catch (\Exception $e) {
+            return $this->dataResponse(Response::HTTP_UNPROCESSABLE_ENTITY, trans('session.delete_error'));
         }
 
-        return $this->dataResponse(Response::HTTP_ACCEPTED, $this->getMessage('deleted'));
+        return $resource
+            ? $this->sendResource(Response::HTTP_ACCEPTED, $this->getMessage('deleted'), $resource)
+            : $this->dataResponse(Response::HTTP_ACCEPTED, $this->getMessage('deleted'));
     }
 
     /**

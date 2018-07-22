@@ -11,6 +11,8 @@ return [
     'cancel' => 'Cancel',
     'download' => 'Download',
     'ok' => 'Ok',
+    'open' => 'Open',
+    'closed' => 'Closed',
 
     'creation' => 'Creation of :model',
 
@@ -52,6 +54,7 @@ return [
     'user_profile' => 'User Profile',
     'user_profiles' => 'User Profiles',
     'snacks' => 'Snacks',
+    'products' => 'Products',
 
     'alert' => 'Alert',
     'warning' => 'Warning',

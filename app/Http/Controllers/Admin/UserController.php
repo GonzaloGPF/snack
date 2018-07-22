@@ -8,7 +8,6 @@ use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\User;
-use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -80,12 +79,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        try {
-            $user->delete();
-        } catch (\Exception $e) {
-            return $this->dataResponse(Response::HTTP_UNPROCESSABLE_ENTITY, trans('verbs.delete_error'));
-        }
-
-        return $this->destroyResponse();
+        return $this->destroyResponse($user, new UserResource($user));
     }
 }

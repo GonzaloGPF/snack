@@ -1,20 +1,24 @@
 <template>
-    <md-field :class="{'md-invalid': hasErrors()}">
+    <div :class="{'md-invalid': hasErrors()}">
         <label v-text="label"/>
 
         <md-datepicker v-model="date"
                        :name="name"
                        :placeholder="label"
                        :disabled="disabled"
-                       @change="onChange"/>
+                       @input="onInput"/>
 
         <validation-messages v-if="validator && validator.form"
                              :input-data="validator.form[name]"
                              :label="label"/>
-    </md-field>
+    </div>
 </template>
 <script>
+import InputMixin from '../../../mixins/InputMixins';
+
 export default {
+    mixins: [InputMixin],
+
     props: ['name', 'value', 'validator', 'disabled'],
 
     data(){
@@ -25,35 +29,17 @@ export default {
         }
     },
 
-    created() {
-        // if(this.options) {
-        //     this.pickerOptions = this.parseOptions();
-        // }
-    },
-
     methods: {
         setValue(value) {
             this.date = value;
-            this.onChange();
+            this.onInput();
         },
 
-        onChange() {
+        onInput(value) {
+            this.updateValidator();
+            this.date = this.$moment(value).format('YYYY-MM-DD HH:mm:ss');
             this.$emit('input', this.date)
         },
-
-        // parseOptions() {
-        //     let pickerOptions = {};
-        //
-        //     if (this.options.minDate) {
-        //         pickerOptions.disabledDate = this.minDate;
-        //     }
-        //
-        //     return pickerOptions;
-        // },
-        //
-        // minDate(time, date) {
-        //     return (time) => time.getTime() > date;
-        // }
     }
 }
 </script>

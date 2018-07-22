@@ -65,6 +65,10 @@
                                   v-model="form[filter.name]"
                                   :multiple="filter.multiple"/>
 
+                        <i-date v-if="filter.type === 'date'"
+                                :ref="filter.name"
+                                v-model="form[filter.name]"
+                                :name="filter.name"/>
                     </div>
                 </div>
             </div>
@@ -75,22 +79,15 @@
 <script>
 import iSelect from '../forms/inputs/iSelect';
 import iText from '../forms/inputs/iText';
+import iDate from '../forms/inputs/iDate';
 import DataTableMixin from '../../mixins/DataTableMixin';
 
-import users from '../../components/tables/filters/userFilters';
-
-let dataFilters = {
-    users,
-};
-
-let translatedDataFilters = false;
-
 export default {
-    components: {iSelect, iText},
+    components: {iSelect, iText, iDate},
 
     mixins: [DataTableMixin],
 
-    props: ['dataField'],
+    props: ['filterFields'],
 
     data() {
         return {
@@ -105,13 +102,6 @@ export default {
     },
 
     created() {
-        if(! translatedDataFilters) {
-            Object.keys(dataFilters).forEach((key) => {
-                this.translateTitles(dataFilters[key]);
-            });
-            translatedDataFilters = true;
-        }
-
         let filters = this.getFilters();
 
         this.normalFilters = filters.normal;
@@ -128,11 +118,9 @@ export default {
 
     methods: {
         getFilters() {
-            let filters = dataFilters[this.dataField];
-
             return {
-                normal: filters.filter(filter => !filter.advanced),
-                advanced: filters
+                normal: this.filterFields.filter(filter => !filter.advanced),
+                advanced: this.filterFields
             };
         },
 

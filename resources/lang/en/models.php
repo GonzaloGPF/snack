@@ -13,4 +13,14 @@ return [
         'manager' => 'Manager',
         'user' => 'User'
     ],
+
+    'order' => [
+        'order' => 'Order',
+        'orders' => 'Orders'
+    ],
+    
+    'product' => [
+        'product' => 'Product',
+        'products' => 'Products'
+    ]
 ];

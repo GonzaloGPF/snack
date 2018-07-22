@@ -19,8 +19,8 @@ class CreateUsersTest extends TestCase
 
         $userData = $this->getUserData();
 
-        $this->postJson(route('admin.users.store', $userData))
-            ->assertStatus(Response::HTTP_UNAUTHORIZED);
+        $this->postJson(route('users.store', $userData))
+            ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /** @test */
@@ -29,7 +29,7 @@ class CreateUsersTest extends TestCase
         $this->signIn();
         $userData = $this->getUserData();
 
-        $response = $this->postJson(route('admin.users.store', $userData))
+        $response = $this->postJson(route('users.store', $userData))
             ->assertStatus(Response::HTTP_CREATED)
             ->json();
 
@@ -43,7 +43,7 @@ class CreateUsersTest extends TestCase
         $role = create(Role::class);
         $userData = $this->getUserData(['role_id' => $role->id]);
 
-        $response = $this->postJson(route('admin.users.store', $userData))
+        $response = $this->postJson(route('users.store', $userData))
             ->assertStatus(Response::HTTP_CREATED)
             ->json();
 

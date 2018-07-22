@@ -2,7 +2,7 @@
     <div>
         <admin-menu v-if="isLoggedIn && authUser.isAdmin"/>
 
-        <md-menu v-if="isLoggedIn" md-align-trigger>
+        <md-menu v-if="isLoggedIn" md-align-trigger md-size="auto">
             <md-button md-menu-trigger v-text="authUser.name"/>
 
             <md-menu-content>
@@ -17,7 +17,7 @@
             </md-menu-content>
         </md-menu>
 
-        <md-menu v-else md-align-trigger>
+        <md-menu v-else md-align-trigger md-size="auto">
             <md-button md-menu-trigger v-text="$t('labels.enter')"/>
 
             <md-menu-content>

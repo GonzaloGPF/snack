@@ -44,7 +44,8 @@ axiosInstance.interceptors.response.use(response => {
     if (status >= 500) {
         EventBus.emit('notify', {
             title: i18n.t('labels.error'),
-            text: data.message
+            text: data.message,
+            type: 'error'
         });
     }
 

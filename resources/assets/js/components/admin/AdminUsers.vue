@@ -25,7 +25,6 @@ import Http from '../../objects/Http';
 import AdminHeader from './headers/AdminHeader';
 import UserInfo from '../../components/info/UserInfo';
 import UserForm from '../../components/forms/UserForm';
-import {mapGetters} from 'vuex';
 
 export default {
     components: {AdminHeader, UserInfo, UserForm},
@@ -42,8 +41,6 @@ export default {
     },
 
     computed: {
-        ...mapGetters(['authUser']),
-
         buttons() {
             return this.isEditing ?
                 ['save', 'cancel'] :

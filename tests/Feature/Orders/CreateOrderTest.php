@@ -18,7 +18,7 @@ class CreateOrderTest extends TestCase
         $this->signIn(create(User::class));
 
         $this->postJson(route('orders.store'), [])
-            ->assertStatus(Response::HTTP_UNAUTHORIZED);
+            ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /** @test */

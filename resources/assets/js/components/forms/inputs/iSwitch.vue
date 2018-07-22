@@ -1,12 +1,11 @@
 <template>
-    <md-field :class="{'md-invalid': hasErrors()}">
-        <label v-text="label"/>
-        <md-switch v-model="val"
-                   :name="name"
-                   :value="val"
-                   :disabled="disabled"
-                   @change="onInput"/>
-    </md-field>
+    <md-switch v-model="val"
+               :name="name"
+               :value="val"
+               :disabled="disabled"
+               @change="onInput">
+        {{ label }}
+    </md-switch>
 </template>
 <script>
 export default {
@@ -15,6 +14,7 @@ export default {
     data(){
         return {
             val: this.value || false,
+            label: this.$t('validation.attributes.' + this.name)
         }
     },
 
@@ -24,6 +24,7 @@ export default {
         },
 
         onInput() {
+            console.log('wtf');
             this.$emit('input', this.val);
         }
     }

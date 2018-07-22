@@ -19,7 +19,7 @@ class UpdateOrderTest extends TestCase
         $this->signIn(create(User::class));
 
         $this->putJson(route('orders.update', create(Order::class)), [])
-            ->assertStatus(Response::HTTP_UNAUTHORIZED);
+            ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 
     /** @test */

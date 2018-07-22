@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="mt-3">
-            <data-table-filter data-field="users"
+            <data-table-filter :filter-fields="filters"
                                @filter-set="onFilterSet"
                                @filter-reset="onFilterReset"/>
         </div>
@@ -19,7 +19,7 @@
                             :params="params"
                             :buttons="['view', 'edit', 'delete']"
                             :data-field="dataField"
-                            url="admin/users"
+                            url="users"
                             @onView="onView"
                             @onEdit="onEdit"
                             @onDelete="onDelete"/>
@@ -29,6 +29,7 @@
 
         <v-modal :show="showModal"
                  :title="modalTitle"
+                 :loading="loading"
                  @close="showModal = false"
                  @submit="onSubmit">
             <validation-errors/>
@@ -55,6 +56,7 @@ import Http from "../../objects/Http";
 import DataTableMixin from '../../mixins/DataTableMixin';
 import userFields from '../../components/tables/dataFields/userFields';
 import validations from '../../components/forms/validations/userValidations';
+import userFilters from '../../components/tables/dataFilters/userFilters';
 
 export default {
     components: { AdminHeader, DataTable, DataTableFilter, UserForm },
@@ -75,7 +77,8 @@ export default {
             isCreating: false,
             isEditing: false,
             showDialog: false,
-            validations: validations.admin
+            validations: validations.admin,
+            filters: userFilters
         }
     },
 
@@ -131,7 +134,7 @@ export default {
                 if (invalid) return;
 
                 this.loading = true;
-                Http.post(`admin/users`, this.form)
+                Http.post(`users`, this.form)
                     .then(this.onSuccess)
                     .catch(this.onError)
             });
@@ -142,7 +145,7 @@ export default {
                 if (invalid) return;
 
                 this.loading = true;
-                Http.put(`admin/users/${this.user.id}`, this.form)
+                Http.put(`users/${this.user.id}`, this.form)
                     .then(this.onSuccess)
                     .catch(this.onError)
             });
@@ -152,7 +155,7 @@ export default {
             this.loading = true;
             this.showDialog = false;
 
-            Http.delete(`admin/users/${this.user.id}`)
+            Http.delete(`users/${this.user.id}`)
                 .then(this.onSuccess)
                 .catch(this.onError)
         },
