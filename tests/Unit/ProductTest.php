@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Collection;
 use Tests\TestCase;
 
 class ProductTest extends TestCase
@@ -22,8 +23,8 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    function it_has_many_many_order_lines()
+    function it_belongs_to_many_order_lines()
     {
-        $this->assertInstanceOf(OrderLine::class, $this->product->orderLines);
+        $this->assertInstanceOf(Collection::class, $this->product->orderLines);
     }
 }

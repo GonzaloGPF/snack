@@ -33,6 +33,7 @@
                    :append-params="params"
                    :per-page="15"
                    :no-data-template="$t('labels.no_data')"
+                   :detail-row-component="detailRow"
                    pagination-path="meta"
                    @vuetable:cell-clicked="onCellClicked"
                    @vuetable:pagination-data="onPaginationData"
@@ -40,7 +41,7 @@
                    @vuetable:loaded="onLoaded"
                    @vuetable:load-error="handleLoadError">
 
-            <template slot="actions" slot-scope="props">
+            <template v-if="buttons && buttons.length > 0" slot="actions" slot-scope="props">
                 <v-admin-buttons :buttons="buttons"
                                  type="text"
                                  @onView="$emit('onView', props.rowData)"
@@ -78,13 +79,14 @@ import VueTablePaginationInfo from 'vuetable-2/src/components/VuetablePagination
 import VueTablePagination from 'vuetable-2/src/components/VuetablePagination';
 import DataTableMixin from '../../mixins/DataTableMixin';
 import vAdminButtons from '../shared/vAdminButtons';
+import './details/details';
 
 export default {
     components: {VueTable, DataTablePagination, VueTablePaginationInfo, VueTablePagination, vAdminButtons},
 
     mixins: [DataTableMixin],
 
-    props: ['url', 'dataField', 'title', 'params', 'buttons'],
+    props: ['url', 'dataField', 'title', 'params', 'buttons', 'detailRow'],
 
     data() {
         return {

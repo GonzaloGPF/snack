@@ -1,17 +1,10 @@
 <template>
     <div>
-        <span v-text="$n(displayValue, 'currency', currency)"/>
+        <span v-if="currency" v-text="$n(displayValue, 'currency', currency)"/>
     </div>
 </template>
 <script>
 import config from '../../config';
-
-// Locales map from 'locale' in config/app.php
-let locales = {
-    'es': 'es-ES',
-    'en': 'en-EN',
-    'us': 'en-US'
-};
 
 export default {
     props: ['value'],
@@ -28,6 +21,9 @@ export default {
 
             return this.value;
         },
+    },
+
+    methods: {
 
         /**
          * Find a currency by the current locale of i18n plugin
@@ -35,8 +31,7 @@ export default {
          * @returns {string}
          */
         getCurrency() {
-            let currencyName = locales[this.$i18n.locale];
-            return currencyName ? currencyName : 'en-US';
+            return config.locales[this.$i18n.locale];
         },
 
         /**
@@ -45,7 +40,7 @@ export default {
          */
         getCurrencySymbol() {
             let currencyData = config.numberFormats[this.getCurrency()];
-            return currencyData ? currencyData['currency']['symbol'] : '$';
+            return currencyData['currency']['symbol'];
         },
     }
 }

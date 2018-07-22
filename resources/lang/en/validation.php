@@ -135,6 +135,7 @@ return [
 
         'id' => 'ID',
         'name' => 'Name',
+        'user_id' => 'User',
         'role_id' => 'Role',
         'groups' => 'Groups',
         'nick' => 'Nick',
@@ -146,6 +147,9 @@ return [
 
         'description' => 'Description',
         'price' => 'Price',
-        'open' => 'Open'
+        'open' => 'Open',
+        'total' => 'Total',
+        'paid' => 'Paid',
+        'products' => 'Products'
     ],
 ];

@@ -138,6 +138,7 @@ return [
 
         'id' => 'ID',
         'name' => 'Nombre',
+        'user_id' => 'Usuario',
         'role_id' => 'Rol',
         'groups' => 'Grupos',
         'provider_id' => 'Proveedor',
@@ -151,6 +152,9 @@ return [
 
         'description' => 'Descripción',
         'price' => 'Precio',
-        'open' => 'Abierto'
+        'open' => 'Abierto',
+        'total' => 'Total',
+        'paid' => 'Pagado',
+        'products' => 'Productos'
     ],
 ];

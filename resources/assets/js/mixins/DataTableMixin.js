@@ -1,3 +1,5 @@
+import config from '../config';
+
 let translatedDataFields = {};
 let translatedFilterFields = {};
 
@@ -9,15 +11,16 @@ export default {
          *
          * @param {string} name
          * @param {array} dataField
+         * @param {boolean} withoutActions
          * @returns {*}
          */
-        buildDataField(name, dataField) {
+        buildDataField(name, dataField, withoutActions = false) {
             if(! translatedDataFields[name]) {
                 dataField = this.translateTitles(dataField);
                 translatedDataFields[name] = true;
             }
 
-            return this.addCommonFields(dataField);
+            return this.addCommonFields(dataField, withoutActions);
         },
 
         getFilterFields(name, filterFields){
@@ -46,9 +49,10 @@ export default {
          * Adds __sequence and _slot:actions field to given data field.
          *
          * @param {array} dataField
+         * @param withoutActions
          * @returns {array}
          */
-        addCommonFields(dataField) {
+        addCommonFields(dataField, withoutActions = false) {
             let tableFields = [{
                 name: '__sequence',
                 title: '#',
@@ -58,12 +62,14 @@ export default {
 
             tableFields = tableFields.concat(dataField);
 
-            tableFields.push({
-                name: '__slot:actions',
-                title: this.$t('validation.attributes.actions'),
-                titleClass: 'text-center',
-                dataClass: 'text-center'
-            });
+            if(! withoutActions) {
+                tableFields.push({
+                    name: '__slot:actions',
+                    title: this.$t('validation.attributes.actions'),
+                    titleClass: 'text-center',
+                    dataClass: 'text-center'
+                });
+            }
 
             return tableFields;
         },
@@ -77,8 +83,12 @@ export default {
             let className = value ? 'badge-success' : 'badge-danger';
             let state = value ? this.$t('labels.open') : this.$t('labels.closed');
             return `<span class="badge ${className}">${state}</span>`
-        }
+        },
 
+        isCurrency(value) {
+            let currency = config.locales[this.$i18n.locale];
+            return this.$n(value, 'currency', currency)
+        }
     }
 }
 

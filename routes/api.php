@@ -31,20 +31,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::resource('users', 'UserController')->except(['edit', 'create']);
     Route::resource('orders', 'OrderController')->except(['edit', 'create']);
     Route::resource('products', 'ProductController')->except(['edit', 'create']);
-
-    /*
-     * Admin Routes
-     */
-    Route::group([
-        'middleware' => 'role:admin',
-        'namespace' => 'Admin',
-        'prefix' => 'admin',
-        'as' => 'admin.'
-    ], function () {
-        Route::resource('users', 'UserController')->except(['edit', 'create']);
-        Route::resource('orders', 'OrderController')->except(['edit', 'create']);
-        Route::resource('products', 'ProductController')->except(['edit', 'create']);
-    });
+    Route::resource('order_lines', 'OrderLineController')->except(['edit', 'create']);
 });
 
 /*

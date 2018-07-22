@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Role;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Collection;
 use Tests\TestCase;
 
 class UserTest extends TestCase
@@ -28,6 +29,12 @@ class UserTest extends TestCase
     function it_belongs_to_a_role()
     {
         $this->assertInstanceOf(Role::class, $this->user->role);
+    }
+
+    /** @test */
+    function it_has_many_order_lines()
+    {
+        $this->assertInstanceOf(Collection::class, $this->user->orderLines);
     }
 
     /** @test */

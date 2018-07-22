@@ -45,6 +45,14 @@ class User extends Authenticatable implements JWTSubject
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orderLines()
+    {
+        return $this->hasMany(OrderLine::class);
+    }
+
+    /**
      * Helper function to know if User has a specific Role.
      * @see Role can be given by name or id.
      *

@@ -17,7 +17,7 @@ class UpdateProductTest extends TestCase
     {
         $this->signIn(create(User::class));
 
-        $this->putJson(route('products.destroy', create(Product::class)))
+        $this->putJson(route('products.update', create(Product::class)))
             ->assertStatus(Response::HTTP_FORBIDDEN);
     }
 

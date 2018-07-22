@@ -22,5 +22,10 @@ return [
     'product' => [
         'product' => 'Product',
         'products' => 'Products'
+    ],
+    
+    'order_line' => [
+        'order_line' => 'Order Line',
+        'order_lines' => 'Order Lines'
     ]
 ];

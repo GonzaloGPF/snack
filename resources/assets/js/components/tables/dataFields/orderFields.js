@@ -1,10 +1,5 @@
 export default [
     {
-        name: 'id',
-        title: 'id',
-        sortField: 'id',
-    },
-    {
         name: 'order_date',
         title: 'order_date',
         sortField: 'order_date',

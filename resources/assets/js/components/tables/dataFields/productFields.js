@@ -13,5 +13,6 @@ export default [
         name: 'price',
         title: 'price',
         sortField: 'price',
+        callback: 'isCurrency'
     },
 ]

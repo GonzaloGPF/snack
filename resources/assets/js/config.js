@@ -8,6 +8,15 @@ export default {
     tokenName: 'snack_jwt',
 
     /**
+     * Locales map from 'locale' in config/app.php to i18n locales
+     */
+    locales: {
+        'es': 'es-ES',
+        'en': 'en-EN',
+        'us': 'en-US'
+    },
+
+    /**
      * All currency data by i18n locale
      */
     numberFormats: {

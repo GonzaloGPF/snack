@@ -13,10 +13,10 @@ class Product extends Model
     protected $fillable = ['name', 'description', 'price'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function orderLines()
     {
-        return $this->hasMany(OrderLine::class);
+        return $this->belongsToMany(OrderLine::class);
     }
 }

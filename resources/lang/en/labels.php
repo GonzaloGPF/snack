@@ -13,6 +13,7 @@ return [
     'ok' => 'Ok',
     'open' => 'Open',
     'closed' => 'Closed',
+    'no' => 'No',
 
     'creation' => 'Creation of :model',
 
